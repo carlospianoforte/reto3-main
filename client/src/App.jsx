@@ -9,13 +9,13 @@ function App() {
   const [error, setError] = useState('');
   const [nameError, setNameError] = useState('');
   const [ageError, setAgeError] = useState('');
-  const [genderError, setGenderError] = useState('');
+  const [sexError, setsexError] = useState('');
   const [dateError, setDateError] = useState('');
   const [ownerError, setOwnerError] = useState('');
   const [form, setForm] = useState({
     name: "",
     age: "",
-    gender: "",
+    sex: "",
     date: "",
     owner: "",
   });
@@ -27,16 +27,16 @@ function App() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    const { name, age, gender, date, owner } = form
-    if (!name || !age || !gender || !date || !owner) {
+    const { name, age, sex, date, owner } = form
+    if (!name || !age || !sex || !date || !owner) {
       setError('Revisa los campos que te falta llenar.')
 
       if (name.length < 3) {
         setNameError('El nombre debe tener mas de 3 caracteres.');
       } if (age < 1) {
         setAgeError('La edad debe ser mayor de 1.');
-      } if (gender !== 'Macho' || gender !== 'Hembra') {
-        setGenderError('Debes escoger el genero.')
+      } if (sex !== 'Macho' || sex !== 'Hembra') {
+        setsexError('Debes escoger el genero.')
       }  // Validación de fecha
 
       const currentDate = new Date();
@@ -65,21 +65,21 @@ function App() {
         id: window.crypto.randomUUID(),
         name,
         age,
-        gender,
+        sex,
         date,
         owner
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
       }
-    })
+    })//.then((response)=>{debugger})
 
     // setRegistrations([...registrations, form]);
-    setForm({ name: "", age: "", gender: "", date: "", owner: "" });
+    setForm({ name: "", age: "", sex: "", date: "", owner: "" });
 
     setNameError("");
     setAgeError("");
-    setGenderError("");
+    setsexError("");
     setDateError("");
     setOwnerError("");
   };
@@ -102,7 +102,7 @@ function App() {
         error={error}
         nameError={nameError}
         ageError={ageError}
-        genderError={genderError}
+        sexError={sexError}
         dateError={dateError}
         ownerError={ownerError}
       />

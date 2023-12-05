@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const Form = ({ form, handleFormSubmit, handleInputChange, error, nameError, ageError, genderError, dateError, ownerError }) => {
+const Form = ({ form, handleFormSubmit, handleInputChange, error, nameError, ageError, sexError, dateError, ownerError }) => {
     return (
         <form className="form-card" onSubmit={handleFormSubmit}>
             <h2>Solicitud de Citas Veterinario</h2>
@@ -24,19 +24,18 @@ const Form = ({ form, handleFormSubmit, handleInputChange, error, nameError, age
                 onChange={handleInputChange}
             />
             {ageError && <p className="error">{ageError}</p>}
-            <label htmlFor="gender">Sexo de la mascota</label>
+            <label htmlFor="sex">Sexo de la mascota</label>
             <select
                 type="text"
-                name="gender"
+                name="sex"
                 placeholder="Sexo de la mascota"
-                value={form.gender}
+                value={form.sex}
                 onChange={handleInputChange}
             >
-                <option value="Null">Null</option>
                 <option value="Macho">Macho</option>
                 <option value="Hembra">Hembra</option>
             </select>
-            {genderError && <p className="error">{genderError}</p>}
+            {sexError && <p className="error">{sexError}</p>}
             <label htmlFor="date">Seleccione fecha de la cita</label>
             <input
                 type="date"
@@ -68,7 +67,7 @@ Form.propTypes = {
     form: PropTypes.shape({
         name: PropTypes.string.isRequired,
         age: PropTypes.string.isRequired,
-        gender: PropTypes.string.isRequired,
+        sex: PropTypes.string.isRequired,
         date: PropTypes.string.isRequired,
         owner: PropTypes.string.isRequired,
     }),

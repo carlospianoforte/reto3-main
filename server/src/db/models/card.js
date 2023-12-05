@@ -32,7 +32,7 @@ const CardSchema = {
 
   sex: {
     allowNull: false,
-    type: DataTypes.ENUM('masculino', 'femenino') // Utilizando ENUM para limitar a dos valores posibles
+    type: DataTypes.ENUM('Macho', 'Hembra') // Utilizando ENUM para limitar a dos valores posibles
   },
 
   date: {
