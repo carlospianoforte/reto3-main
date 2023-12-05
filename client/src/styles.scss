@@ -1,0 +1,94 @@
+.app {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    background-color: #d3d3d3;
+    font-family: Arial, Helvetica, sans-serif;
+
+    .form-card {
+        background-color: #fff;
+        margin: 10px;
+        padding: 50px;
+        align-items: center;
+        border-radius: 10px;
+        box-shadow: 5px 5px 5px gray;
+
+        select {  
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        input {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .error {
+            color: #ff3d3d;
+            font-size: 12px;
+            margin-top: 5px;
+            padding: 0;
+            margin: 0;
+            margin: 15px 0px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: blue;
+            color: white;
+            transition: 0.3s all ease-in-out;
+            
+            &:hover {
+                background-color: aqua;
+                color: black;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .section {
+        width: 100%;
+        margin: 25px 30px;
+        display: flex;
+        flex-flow: wrap;
+        justify-content: center;
+
+        .registration-card {
+            background-color: white;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 5px gray;
+            min-width: 200px;
+            max-width: max-content;
+    
+            h2 {
+                color: black;
+                font-size: 18px;
+            }
+    
+            p, h3, h4 {
+                color: #6a6a6a;
+                font-size: 16px;
+                font-weight: 200;
+            }
+        }
+    }
+
+}
