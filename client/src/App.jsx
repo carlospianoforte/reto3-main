@@ -24,6 +24,7 @@ function App() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const { name, age, sex, date, description } = form
@@ -49,22 +50,6 @@ function App() {
 
       return
     }
-
-
-    // fetch('http://localhost:3000/cards', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     id: window.crypto.randomUUID(),
-    //     name,
-    //     age,
-    //     sex,
-    //     date,
-    //     description
-    //   }),
-    //   headers: {
-    //     'Content-type': 'application/json; charset=UTF-8'
-    //   }
-    // })
 
     const addNewCard = async () => {
       try {

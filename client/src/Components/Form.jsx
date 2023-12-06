@@ -57,7 +57,7 @@ const Form = ({ form, handleFormSubmit, handleInputChange, error, nameError, age
             {descriptionError && <p className="error">{descriptionError}</p>}
             <hr />
             {error && <p className="error">{error}</p>}
-            <button type="submit">Descripcion</button>
+            <button type="submit">Agregar Cita</button>
         </form>
     )
 }

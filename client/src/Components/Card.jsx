@@ -1,21 +1,15 @@
+import { useCardContext } from '../CardContext';
 import PropTypes from "prop-types";
 
 
-
-    const handleDeleteUser = async (id) => {
-      try {
-        await fetch(`http://localhost:3000/cards/${id}`, {
-          method: 'DELETE',
-        });
-        // // Actualiza la lista de usuarios después de la eliminación
-        // const updatedUsers = users.filter(user => user.id !== id);
-        // setUsers(updatedUsers);
-      } catch (error) {
-        console.error('Error al eliminar el usuario:', error);
-      }
-    };
-
 const Card = ({ registration }) => {
+
+    const { deleteUser } = useCardContext();
+
+  const handleDeleteUser = async (id) => {
+    deleteUser(id);
+  };
+
     return (
     <>
         <div className="registration-card">
@@ -30,6 +24,7 @@ const Card = ({ registration }) => {
             <h2>Triage de la mascota:</h2>
             <h4>{registration.description}</h4>
             <button onClick={() => handleDeleteUser(registration.id)}>Delete</button>
+            <button onClick={() => handleUpdateCard(registration.id)}>Update</button>
         </div>
     </>
 
