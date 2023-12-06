@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Form from "./Components/Form";
 import Card from "./Components/Card";
-import axios from "axios";
 
 import "./styles.scss";
 
@@ -11,13 +10,13 @@ function App() {
   const [ageError, setAgeError] = useState('');
   const [sexError, setsexError] = useState('');
   const [dateError, setDateError] = useState('');
-  const [ownerError, setOwnerError] = useState('');
+  const [descriptionError, setdescriptionError] = useState('');
   const [form, setForm] = useState({
     name: "",
     age: "",
     sex: "",
     date: "",
-    owner: "",
+    description: "",
   });
   const [users, setUsers] = useState([]);
 
@@ -27,8 +26,8 @@ function App() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    const { name, age, sex, date, owner } = form
-    if (!name || !age || !sex || !date || !owner) {
+    const { name, age, sex, date, description } = form
+    if (!name || !age || !sex || !date || !description) {
       setError('Revisa los campos que te falta llenar.')
 
       if (name.length < 3) {
@@ -44,44 +43,70 @@ function App() {
       if (selectedDate > currentDate || selectedDate.getFullYear() > 2023 || !date) {
         setDateError('Debes ingresar una fecha válida.');
       }
-      if (owner.length < 3) {
-        setOwnerError('Debes de ingresar el nombre del dueño.');
+      if (description.length < 3) {
+        setdescriptionError('Debes de ingresar el nombre del dueño.');
       }
 
       return
     }
 
-    // const add = () => {
-    //   axios.post("http://localhost:3000/cards",{
 
-    //   }).then(()=>{
-    //     alert("tarjeta creada")
-    //   })
-    // }
+    // fetch('http://localhost:3000/cards', {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     id: window.crypto.randomUUID(),
+    //     name,
+    //     age,
+    //     sex,
+    //     date,
+    //     description
+    //   }),
+    //   headers: {
+    //     'Content-type': 'application/json; charset=UTF-8'
+    //   }
+    // })
 
-    fetch('http://localhost:3000/cards', {
-      method: 'POST',
-      body: JSON.stringify({
-        id: window.crypto.randomUUID(),
-        name,
-        age,
-        sex,
-        date,
-        owner
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
+    const addNewCard = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/cards', {
+          method: 'POST',
+          body: JSON.stringify({
+            id: window.crypto.randomUUID(),
+            name,
+            age,
+            sex,
+            date,
+            description
+          }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+          }
+        });
+    
+        // Manejar la respuesta aquí si es necesario
+        if (response.ok) {
+          alert("Tarjeta creada");
+        } else {
+          throw new Error("Error al crear la tarjeta");
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        // Manejar errores aquí si es necesario
       }
-    })//.then((response)=>{debugger})
+    };
+    
+    // Llamar a la función asincrónica
+    addNewCard();
+  
 
     // setRegistrations([...registrations, form]);
-    setForm({ name: "", age: "", sex: "", date: "", owner: "" });
+    setForm({ name: "", age: "", sex: "", date: "", description: "" });
 
     setNameError("");
     setAgeError("");
     setsexError("");
     setDateError("");
-    setOwnerError("");
+    setdescriptionError("");
   };
 
   useEffect(() => {
@@ -104,7 +129,7 @@ function App() {
         ageError={ageError}
         sexError={sexError}
         dateError={dateError}
-        ownerError={ownerError}
+        descriptionError={descriptionError}
       />
       <h2>Calendario de citas:</h2>
       <section className="section">

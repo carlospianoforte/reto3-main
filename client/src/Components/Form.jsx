@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const Form = ({ form, handleFormSubmit, handleInputChange, error, nameError, ageError, sexError, dateError, ownerError }) => {
+const Form = ({ form, handleFormSubmit, handleInputChange, error, nameError, ageError, sexError, dateError, descriptionError }) => {
     return (
         <form className="form-card" onSubmit={handleFormSubmit}>
             <h2>Solicitud de Citas Veterinario</h2>
@@ -32,6 +32,7 @@ const Form = ({ form, handleFormSubmit, handleInputChange, error, nameError, age
                 value={form.sex}
                 onChange={handleInputChange}
             >
+                <option value="Null">Null</option>
                 <option value="Macho">Macho</option>
                 <option value="Hembra">Hembra</option>
             </select>
@@ -45,18 +46,18 @@ const Form = ({ form, handleFormSubmit, handleInputChange, error, nameError, age
             />
             {dateError && <p className="error">{dateError}</p>}
             
-            <label htmlFor="owner">Nombre del dueño</label>
+            <label htmlFor="description">Triage de la mascota</label>
             <input
                 type="text"
-                name="owner"
+                name="description"
                 placeholder="Nombre del dueño"
-                value={form.owner}
+                value={form.description}
                 onChange={handleInputChange}
             />
-            {ownerError && <p className="error">{ownerError}</p>}
+            {descriptionError && <p className="error">{descriptionError}</p>}
             <hr />
             {error && <p className="error">{error}</p>}
-            <button type="submit">Registrar</button>
+            <button type="submit">Descripcion</button>
         </form>
     )
 }
@@ -69,7 +70,7 @@ Form.propTypes = {
         age: PropTypes.string.isRequired,
         sex: PropTypes.string.isRequired,
         date: PropTypes.string.isRequired,
-        owner: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
     }),
     error: PropTypes.string.isRequired,
 };

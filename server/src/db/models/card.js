@@ -37,7 +37,7 @@ const CardSchema = {
 
   date: {
     allowNull: false,
-    type: DataTypes.DATE // Cambiado a DataTypes.DATE para almacenar fechas
+    type: DataTypes.STRING
   },
   description: {
     allowNull: true,
