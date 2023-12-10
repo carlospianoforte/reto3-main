@@ -15,7 +15,7 @@ function App() {
   const [descriptionError, setdescriptionError] = useState('');
 
 
-  const { fetchUpdateCard, fetchGetCards, fetchAddCard} = useCardContext();
+  const { fetchUpdateCard, fetchGetCards, fetchAddCard, deleteUser} = useCardContext();
 
 
   const [form, setForm] = useState({
@@ -39,15 +39,17 @@ function App() {
 
   const handleSelectCard = (registration) => {
     setSelectedRegistration(registration);
-    setForm({ ...registration }); // Esto llena el formulario con los datos seleccionados
+    setForm({ ...registration }); 
   };
 
-  const handleUpdateCard = () => {
+  const handleUpdateCard = async () => {
     if (selectedRegistration) {
       const updatedData = { ...form };
-      fetchUpdateCard(selectedRegistration.id, updatedData); // Esta es una suposición, reemplaza con la función adecuada para actualizar
+      await fetchUpdateCard(selectedRegistration.id, updatedData); 
+      await fetchGetCards();
 
-      // Actualizar el estado de las tarjetas después de la actualización
+      
+
       const updatedUsers = users.map((user) =>
         user.id === selectedRegistration.id ? { ...user, ...form } : user
       );
@@ -57,9 +59,16 @@ function App() {
   };
 
 
+  const handleDeleteUser = async (id) => {
+    await deleteUser(id);
+    await fetchGetCards();
+    setUsers(users.filter(user => user.id !== id));
+  };
+
+
 /*** */
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     const { name, age, sex, date, description } = form
     if (!name || !age || !sex || !date || !description) {
@@ -96,47 +105,11 @@ function App() {
       date,
       description
     };
-    fetchAddCard(newCardData);
+    await fetchAddCard(newCardData);
+    await fetchGetCards();
 
-    /****************** */
 
-    // const addNewCard = async () => {
-    //   try {
-    //     const response = await fetch('http://localhost:3000/cards', {
-    //       method: 'POST',
-    //       body: JSON.stringify({
-    //         id: window.crypto.randomUUID(),
-    //         name,
-    //         age,
-    //         sex,
-    //         date,
-    //         description
-    //       }),
-    //       headers: {
-    //         'Content-type': 'application/json; charset=UTF-8'
-    //       }
-    //     });
-    
-    //     // Manejar la respuesta aquí si es necesario
-    //     if (response.ok) {
-    //       alert("Tarjeta creada");
-    //       fetchGetCards(); // Obtener las tarjetas actualizadas después de agregar una nueva
-    //     } else {
-    //       throw new Error("Error al crear la tarjeta");
-    //     }
-    //   } catch (error) {
-    //     console.error('Error:', error);
-    //     // Manejar errores aquí si es necesario
-    //   }
-    // };
-    
-    // Llamar a la función asincrónica
-    //addNewCard();
-  
-
-    // setRegistrations([...registrations, form]);
     setForm({ name: "", age: "", sex: "", date: "", description: "" });
-
     setNameError("");
     setAgeError("");
     setsexError("");
@@ -174,9 +147,9 @@ function App() {
             key={`${registration.date}${registration.name}`}
             registration={registration}
 
-
-            form={form}
             handleFormSubmit={handleFormSubmit}
+            form={form}
+            handleDeleteUser={handleDeleteUser}
             handleInputChange={handleInputChange}
             handleSelectCard={handleSelectCard}
 

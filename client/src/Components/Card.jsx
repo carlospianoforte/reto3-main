@@ -3,17 +3,7 @@ import { useCardContext } from '../CardContext';
 import PropTypes from "prop-types";
 import "../styles.scss";
 
-
-
-
-
-const Card = ({ registration, handleSelectCard}) => {
-    const { deleteUser} = useCardContext();
-
-    const handleDeleteUser = async (id) => {
-        deleteUser(id);
-      };
-    
+const Card = ({ registration, handleSelectCard, handleDeleteUser}) => {
 
     return (
     <>
