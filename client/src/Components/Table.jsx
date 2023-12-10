@@ -1,50 +1,34 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const Table = ({ registrations }) => {
-    const { deleteUser } = useCardContext();
-
+const Table = ({ registrations, handleDeleteUser }) => {
     return (
         <div className="hola">
             <section className="m-4 border border-dark border-4 rounded">
                 <table className="table table-striped">
                     <thead>
                         <tr>
-                            <th
-                                className="p-4 text-primary"
-                                scope="col">Nombre de la mascota:</th>
-                            <th
-                                className="p-4 text-primary"
-                                scope="col">Edad de la mascota:</th>
-                            <th
-                                className="p-4 text-primary"
-                                scope="col">Sexo:</th>
-                            <th
-                                className="p-4 text-primary"
-                                scope="col">Día de la cita:</th>
-                            <th
-                                className="p-4 text-primary"
-                                scope="col">Triage de la mascota:</th>
-                            <th
-                                className="p-4 text-primary"
-                                scope="col">Acciones</th>
+                            <th className="p-4 text-primary" scope="col">Nombre de la mascota:</th>
+                            <th className="p-4 text-primary" scope="col">Edad de la mascota:</th>
+                            <th className="p-4 text-primary" scope="col">Sexo:</th>
+                            <th className="p-4 text-primary" scope="col">Día de la cita:</th>
+                            <th className="p-4 text-primary" scope="col">Triage de la mascota:</th>
+                            <th className="p-4 text-primary" scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {registrations.map((registration) => (
-                            <tr key={`${registration.date}${registration.name}`}
-                            >
+                            <tr key={`${registration.date}${registration.name}`}>
                                 <td className="ps-4">{registration.name}</td>
-                                <td
-                                    className="text-center">{registration.age}</td>
+                                <td className="text-center">{registration.age}</td>
                                 <td className="ps-4">{registration.sex}</td>
                                 <td className="ps-4">{registration.date}</td>
                                 <td className="ps-4 description">{registration.description}</td>
                                 <td className="ps-4">
-                                <button
+                                    <button
                                         type="button"
                                         className="btn btn-danger m-2"
-                                        onClick={() => deleteUser(registration.id)}>
+                                        onClick={() => handleDeleteUser(registration.id)}>
                                         Delete
                                     </button>
                                 </td>
@@ -65,6 +49,7 @@ const Table = ({ registrations }) => {
 };
 
 Table.propTypes = {
+    handleDeleteUser: PropTypes.func.isRequired,
     registrations: PropTypes.arrayOf(
         PropTypes.shape({
             name: PropTypes.string.isRequired,
@@ -77,7 +62,8 @@ Table.propTypes = {
 };
 
 Table.defaultProps = {
-    registrations: [],
+    registrations: [], 
+    handleDeleteUser: () => { },  
 };
 
 export default Table;
