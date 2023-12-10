@@ -18,16 +18,6 @@ const CardSchema = {
   age: {
     allowNull: false,
     type: DataTypes.INTEGER,
-    validate: {
-      min: {
-        args: [0],
-        msg: 'La edad debe ser mayor o igual a 0',
-      },
-      max: {
-        args: [30],
-        msg: 'La edad no puede ser mayor a 30',
-      },
-    },
   },
 
   sex: {

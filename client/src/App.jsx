@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Form from "./Components/Form";
 import Card from "./Components/Card";
+import Footer from "./Components/Footer";
+import { useCardContext } from './CardContext';
 
 import "./styles.scss";
 
@@ -11,6 +13,11 @@ function App() {
   const [sexError, setsexError] = useState('');
   const [dateError, setDateError] = useState('');
   const [descriptionError, setdescriptionError] = useState('');
+
+
+  const { fetchUpdateCard, fetchGetCards, fetchAddCard} = useCardContext();
+
+
   const [form, setForm] = useState({
     name: "",
     age: "",
@@ -18,12 +25,39 @@ function App() {
     date: "",
     description: "",
   });
+
   const [users, setUsers] = useState([]);
 
   const handleInputChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+
+  /**** */
+
+  const [selectedRegistration, setSelectedRegistration] = useState(null);
+
+  const handleSelectCard = (registration) => {
+    setSelectedRegistration(registration);
+    setForm({ ...registration }); // Esto llena el formulario con los datos seleccionados
+  };
+
+  const handleUpdateCard = () => {
+    if (selectedRegistration) {
+      const updatedData = { ...form };
+      fetchUpdateCard(selectedRegistration.id, updatedData); // Esta es una suposición, reemplaza con la función adecuada para actualizar
+
+      // Actualizar el estado de las tarjetas después de la actualización
+      const updatedUsers = users.map((user) =>
+        user.id === selectedRegistration.id ? { ...user, ...form } : user
+      );
+      setUsers(updatedUsers);
+      setForm({ name: "", age: "", sex: "", date: "", description: "" });
+    }
+  };
+
+
+/*** */
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -51,37 +85,53 @@ function App() {
       return
     }
 
-    const addNewCard = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/cards', {
-          method: 'POST',
-          body: JSON.stringify({
-            id: window.crypto.randomUUID(),
-            name,
-            age,
-            sex,
-            date,
-            description
-          }),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-          }
-        });
-    
-        // Manejar la respuesta aquí si es necesario
-        if (response.ok) {
-          alert("Tarjeta creada");
-        } else {
-          throw new Error("Error al crear la tarjeta");
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        // Manejar errores aquí si es necesario
-      }
+
+    /**************** */
+
+    const newCardData = {
+      id: window.crypto.randomUUID(),
+      name,
+      age,
+      sex,
+      date,
+      description
     };
+    fetchAddCard(newCardData);
+
+    /****************** */
+
+    // const addNewCard = async () => {
+    //   try {
+    //     const response = await fetch('http://localhost:3000/cards', {
+    //       method: 'POST',
+    //       body: JSON.stringify({
+    //         id: window.crypto.randomUUID(),
+    //         name,
+    //         age,
+    //         sex,
+    //         date,
+    //         description
+    //       }),
+    //       headers: {
+    //         'Content-type': 'application/json; charset=UTF-8'
+    //       }
+    //     });
+    
+    //     // Manejar la respuesta aquí si es necesario
+    //     if (response.ok) {
+    //       alert("Tarjeta creada");
+    //       fetchGetCards(); // Obtener las tarjetas actualizadas después de agregar una nueva
+    //     } else {
+    //       throw new Error("Error al crear la tarjeta");
+    //     }
+    //   } catch (error) {
+    //     console.error('Error:', error);
+    //     // Manejar errores aquí si es necesario
+    //   }
+    // };
     
     // Llamar a la función asincrónica
-    addNewCard();
+    //addNewCard();
   
 
     // setRegistrations([...registrations, form]);
@@ -115,16 +165,26 @@ function App() {
         sexError={sexError}
         dateError={dateError}
         descriptionError={descriptionError}
+        handleUpdateCard={handleUpdateCard} // Pasar la función para actualizar la tarjeta desde el formulario
       />
       <h2>Calendario de citas:</h2>
-      <section className="section">
+      <section className="lista-citas">
         {users.map((registration) => (
           <Card
             key={`${registration.date}${registration.name}`}
             registration={registration}
+
+
+            form={form}
+            handleFormSubmit={handleFormSubmit}
+            handleInputChange={handleInputChange}
+            handleSelectCard={handleSelectCard}
+
           />
         ))}
       </section>
+      <Footer />
+
     </div>
   );
 }

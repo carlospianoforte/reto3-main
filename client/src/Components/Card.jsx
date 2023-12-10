@@ -1,35 +1,41 @@
+import { useState } from 'react';
 import { useCardContext } from '../CardContext';
 import PropTypes from "prop-types";
+import "../styles.scss";
 
 
-const Card = ({ registration }) => {
 
-    const { deleteUser } = useCardContext();
 
-  const handleDeleteUser = async (id) => {
-    deleteUser(id);
-  };
+
+const Card = ({ registration, handleSelectCard}) => {
+    const { deleteUser} = useCardContext();
+
+    const handleDeleteUser = async (id) => {
+        deleteUser(id);
+      };
+    
 
     return (
     <>
-        <div className="registration-card">
-            <h2>Nombre de la mascota:</h2>
-            <h3>{registration.name}</h3>
-            <h2>Edad de la mascota:</h2>
-            <h4>{registration.age}</h4>
-            <h2>Sexo:</h2>
+        <div className="cita-card">
+            <h3>Nombre de la mascota:</h3>
+            <p>{registration.name}</p>
+            <h3>Edad de la mascota:</h3>
+            <p>{registration.age}</p>
+            <h3>Genero:</h3>
             <p>{registration.sex}</p>
-            <h2>Día de la cita:</h2>
-            <h3>{registration.date}</h3>
-            <h2>Triage de la mascota:</h2>
-            <h4>{registration.description}</h4>
-            <button onClick={() => handleDeleteUser(registration.id)}>Delete</button>
-            <button onClick={() => handleUpdateCard(registration.id)}>Update</button>
+            <h3>Día de la cita:</h3>
+            <p>{registration.date}</p>
+            <h3>Triage de la mascota:</h3>
+            <p>{registration.description}</p>
+
+            <div className="botones-card">
+                <button className='button-card' onClick={() => handleDeleteUser(registration.id)}>Delete</button>
+                <button className='button-card' onClick={() => handleSelectCard(registration)}>Seleccionar</button>
+            </div>
         </div>
+
     </>
-
-
-
     )
 }
 
