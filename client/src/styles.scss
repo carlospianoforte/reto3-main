@@ -1,155 +1,152 @@
+@import "bootstrap/scss/bootstrap";
+
 body {
-    background-image: url(https://img.freepik.com/vector-gratis/clinica-veterinaria-medico-mascotas-enfermas_107791-11715.jpg?size=626&ext=jpg&ga=GA1.1.1335832033.1678119646&semt=ais);
-    background-size: auto; 
-    background-attachment: fixed;
-    height: 100vh;
-    
-  }
+  background-image: url(https://img.freepik.com/vector-gratis/clinica-veterinaria-medico-mascotas-enfermas_107791-11715.jpg?size=626&ext=jpg&ga=GA1.1.1335832033.1678119646&semt=ais);
+  background-size: auto;
+  background-attachment: fixed;
+  min-height: 100vh;
 
-  .app {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
-  }
+}
 
-  .lista-citas {
-    width: 820px;
-    height: 300px;
-    background-color: #f4f4f4;
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+}
+
+.lista-citas {
+  width: auto;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(3, 250px);
+  grid-gap: 30px;
+  opacity: .9;
+
+  .cita-card {
+    background-color: #fff;
+    margin: 10px 0;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    display: grid;
-    grid-template-columns: repeat(3, 250px);
-    grid-gap: 30px;
-    overflow-y: scroll;
-    opacity: .9;
-  
-  
-  
-  
-    .cita-card {
-      background-color: #fff;
-      margin: 10px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      line-height: 10px;
+    line-height: 10px;
 
+
+    .description {
+      height: 50px;
+      line-height: 1.5rem;
     }
   }
-  
+}
 
+.cita-form {
+  background: linear-gradient(0deg, rgba(34, 78, 195, 0.7399334733893557) 0%, rgba(45, 248, 253, 1) 100%);
+  padding: 30px;
+  padding-right: 50px;
+  width: 320px;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  border: 2px solid rgb(26, 2, 94);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  margin-top: 2rem;
 
-  .cita-form {
-    background:linear-gradient(0deg, rgba(34,78,195,0.7399334733893557) 0%, rgba(45,248,253,1) 100%);
-    padding: 30px;
-    padding-right: 50px;
-    width: 280px;
-    height: auto;
+  .gender {
+    height: 2.5rem;
+  }
+
+  label {
+    display: block;
+    font-weight: bold;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius: 10px;
-    border: 2px solid rgb(26, 2, 94);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  
-    label {
-      display: block;
-      font-weight: bold;
-    }
-  
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-  
-      &.error {
-        border-color: red;
-      }
-    }
-  
-    button {
-      background-color: #007bff;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  
-    .error {
-      color: red;
-      line-height:0;
-      font-size: 14px;
-      margin-top: auto;
-    }
+    border-radius: 3px;
 
-
-    .update-button {
-        display: none; // Botón oculto por defecto
-      }
-    
-      .show {
-        display: block; // Muestra el botón si hay una tarjeta seleccionada
-      }
-    
-      .hide {
-        display: none; // Oculta el botón si no hay una tarjeta seleccionada
-      }
-
-    
+    &.error {
+      border-color: red;
+    }
   }
 
-  .lista-citas::-webkit-scrollbar{
+  button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .error {
+    color: red;
+    line-height: 0;
+    font-size: 14px;
+    margin-top: auto;
+  }
+
+
+  .update-button {
+    display: none;
+  }
+
+  .show {
+    display: block;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .lista-citas::-webkit-scrollbar {
     width: 10px;
-    //background-color:  rgba(56, 86, 170, 0.644);
-    //overflow-y: scroll;
+
   }
-  
-  .lista-citas::-webkit-scrollbar-thumb{
-    background-color:  rgba(255, 255, 255, 0.2);
+
+  .lista-citas::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    border-bottom: 2px solid ;
+    border-bottom: 2px solid;
   }
 
-    .botones-form{
-       display: flex; 
-       justify-content: space-between;
-    }
+  .botones-form {
+    display: flex;
+    justify-content: space-between;
+  }
 
-    .botones-card{
-        display: flex; 
-        justify-content: space-between;
-     }
- 
-     .button-card {
-        background-color: #007bff;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+  .botones-card {
+    display: flex;
+    justify-content: space-between;
+  }
 
-
-      .Footer{
-        color: red;
-        margin-top:20px;
-        text-align: center;
-        width:100%;
-        font-size: 20px;
-        //font-weight: bold;
-      
-      }
+  .button-card {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 
 
-      .error-genero {
-        color: red;
-        line-height:0;
-        font-size: 14px;
-        margin-top: 10px;
-    }
-    
+  .Footer {
+    color: red;
+    margin-top: 20px;
+    text-align: center;
+    width: 100vw;
+    font-size: 20px;
+    margin-top: auto;
+  }
+
+  .error-genero {
+    line-height: 0;
+    font-size: 14px;
+  }
+}

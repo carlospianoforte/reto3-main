@@ -1,3 +1,5 @@
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import Table from "./Components/Table";
 import { useEffect, useState } from "react";
 import Form from "./Components/Form";
 import Card from "./Components/Card";
@@ -126,40 +128,56 @@ function App() {
     getPost()
   }, [form])
 
-  return (
-    <div className="app">
-      <Form
-        form={form}
-        handleFormSubmit={handleFormSubmit}
-        handleInputChange={handleInputChange}
-        error={error}
-        nameError={nameError}
-        ageError={ageError}
-        sexError={sexError}
-        dateError={dateError}
-        descriptionError={descriptionError}
-        handleUpdateCard={handleUpdateCard} // Pasar la función para actualizar la tarjeta desde el formulario
-      />
-      <h2>Calendario de citas:</h2>
-      <section className="lista-citas">
-        {users.map((registration) => (
-          <Card
-            key={`${registration.date}${registration.name}`}
-            registration={registration}
+    return (
+      <div className="app">
+        <Router>
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Form
+                  form={form}
+                  handleFormSubmit={handleFormSubmit}
+                  handleInputChange={handleInputChange}
+                  error={error}
+                  nameError={nameError}
+                  ageError={ageError}
+                  sexError={sexError}
+                  dateError={dateError}
+                  descriptionError={descriptionError}
+                  handleUpdateCard={handleUpdateCard} // Pasar la función para actualizar la tarjeta desde el formulario
+                />
+                <h2 className="mt-3 bg-white p-3 border border-dark border-2 rounded-2">Calendario de citas:</h2>
+                <Link to="/table">
+                  <button type="button" className="btn btn-dark my-3">
+                    Ver Citas en Table View
+                  </button>
+                </Link>
+                <section className="lista-citas border border-dark border-2">
+                  {users.map((registration) => (
+                    <Card
+                      key={`${registration.date}${registration.name}`}
+                      registration={registration}
 
-            handleFormSubmit={handleFormSubmit}
-            form={form}
-            handleDeleteUser={handleDeleteUser}
-            handleInputChange={handleInputChange}
-            handleSelectCard={handleSelectCard}
+                      handleFormSubmit={handleFormSubmit}
+                      form={form}
+                      handleDeleteUser={handleDeleteUser}
+                      handleInputChange={handleInputChange}
+                      handleSelectCard={handleSelectCard}
 
-          />
-        ))}
-      </section>
-      <Footer />
+                    />
+                  ))}
+                </section>
+              </>
+            } />
+            <Route
+              path="/table"
+              element={<Table registrations={users} />}
+            />
+          </Routes>
+        </Router>
+        <Footer />
+      </div>
+    );
+  }
 
-    </div>
-  );
-}
-
-export default App;
+  export default App;
